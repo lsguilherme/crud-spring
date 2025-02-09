@@ -4,7 +4,6 @@ import com.guilhermels.crud.dtos.ProductRequestDto;
 import com.guilhermels.crud.dtos.ProductResponseDto;
 import com.guilhermels.crud.entities.ProductEntity;
 import com.guilhermels.crud.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

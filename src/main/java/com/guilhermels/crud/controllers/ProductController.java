@@ -2,9 +2,7 @@ package com.guilhermels.crud.controllers;
 
 import com.guilhermels.crud.dtos.ProductRequestDto;
 import com.guilhermels.crud.dtos.ProductResponseDto;
-import com.guilhermels.crud.entities.ProductEntity;
 import com.guilhermels.crud.services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
