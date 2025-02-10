@@ -40,4 +40,8 @@ public class ProductService {
                 productEntity.getUpdatedAt()
         );
     }
+
+    public void deleteProductById(Integer id){
+        productRepository.deleteById(id);
+    }
 }

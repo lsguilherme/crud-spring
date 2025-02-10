@@ -26,4 +26,10 @@ public class ProductController {
     public ResponseEntity<ProductResponseDto> findProductById(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(productService.findProductById(id));
     }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Integer id){
+        productService.deleteProductById(id);
+        return ResponseEntity.ok("Item deletado com sucesso");
+    }
 }
