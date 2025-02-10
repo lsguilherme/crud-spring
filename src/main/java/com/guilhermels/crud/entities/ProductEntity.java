@@ -1,5 +1,6 @@
 package com.guilhermels.crud.entities;
 
+import com.guilhermels.crud.dtos.responses.ProductResponseDto;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -59,5 +60,17 @@ public class ProductEntity extends AbstractBaseEntity{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ProductResponseDto toDto(){
+        return new ProductResponseDto(
+                this.id,
+                this.name,
+                this.price,
+                this.description,
+                this.getCreatedAt(),
+                this.getUpdatedAt()
+
+        );
     }
 }
