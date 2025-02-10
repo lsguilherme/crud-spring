@@ -1,7 +1,7 @@
 package com.guilhermels.crud.controllers;
 
-import com.guilhermels.crud.dtos.ProductRequestDto;
-import com.guilhermels.crud.dtos.ProductResponseDto;
+import com.guilhermels.crud.dtos.requests.ProductRequestDto;
+import com.guilhermels.crud.dtos.responses.ProductResponseDto;
 import com.guilhermels.crud.services.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

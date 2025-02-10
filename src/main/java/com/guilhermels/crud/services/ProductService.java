@@ -1,7 +1,7 @@
 package com.guilhermels.crud.services;
 
-import com.guilhermels.crud.dtos.ProductRequestDto;
-import com.guilhermels.crud.dtos.ProductResponseDto;
+import com.guilhermels.crud.dtos.requests.ProductRequestDto;
+import com.guilhermels.crud.dtos.responses.ProductResponseDto;
 import com.guilhermels.crud.entities.ProductEntity;
 import com.guilhermels.crud.repositories.ProductRepository;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.guilhermels.crud.dtos;
+package com.guilhermels.crud.dtos.responses;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

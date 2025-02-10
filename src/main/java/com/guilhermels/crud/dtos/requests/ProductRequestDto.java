@@ -1,4 +1,4 @@
-package com.guilhermels.crud.dtos;
+package com.guilhermels.crud.dtos.requests;
 
 import java.math.BigDecimal;
 
