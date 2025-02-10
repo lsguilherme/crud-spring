@@ -22,4 +22,8 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.saveProduct(productRequestDto));
     }
 
+    @GetMapping(value = "{id}")
+    public ResponseEntity<ProductResponseDto> findProductById(@PathVariable Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(productService.findProductById(id));
+    }
 }

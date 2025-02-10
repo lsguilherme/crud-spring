@@ -17,8 +17,27 @@ public class ProductService {
 
 
     public ProductResponseDto saveProduct(ProductRequestDto productRequestDto){
-        ProductEntity product = new ProductEntity(productRequestDto.name(), productRequestDto.price(), productRequestDto.description());
-        product = productRepository.save(product);
-        return new ProductResponseDto(product.getId(), product.getName(), product.getPrice(), product.getDescription(), product.getCreatedAt(), product.getUpdatedAt());
+        ProductEntity productEntity = new ProductEntity(productRequestDto.name(), productRequestDto.price(), productRequestDto.description());
+        productEntity = productRepository.save(productEntity);
+        return new ProductResponseDto(
+                productEntity.getId(),
+                productEntity.getName(),
+                productEntity.getPrice(),
+                productEntity.getDescription(),
+                productEntity.getCreatedAt(),
+                productEntity.getUpdatedAt()
+        );
+    }
+
+    public ProductResponseDto findProductById(Integer id){
+        ProductEntity productEntity = productRepository.findById(id).orElseThrow();
+        return new ProductResponseDto(
+                productEntity.getId(),
+                productEntity.getName(),
+                productEntity.getPrice(),
+                productEntity.getDescription(),
+                productEntity.getCreatedAt(),
+                productEntity.getUpdatedAt()
+        );
     }
 }
