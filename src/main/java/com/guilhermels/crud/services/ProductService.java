@@ -49,7 +49,7 @@ public class ProductService {
     }
 
     public Page<ProductResponseDto> findAllProducts(int page, int size) {
-        Page<ProductEntity> productEntities = productRepository.findAll(PageRequest.of(page, size));
+        Page<ProductEntity> productEntities = productRepository.findAllProducts(PageRequest.of(page, size));
 
         return productEntities.map(ProductEntity::toDto);
     }
