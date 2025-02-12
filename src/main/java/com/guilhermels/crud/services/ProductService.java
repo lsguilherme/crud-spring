@@ -48,8 +48,8 @@ public class ProductService {
         return productEntity.toDto();
     }
 
-    public Page<ProductResponseDto> findAllProducts(int page, int size) {
-        Page<ProductEntity> productEntities = productRepository.findAllProducts(PageRequest.of(page, size));
+    public Page<ProductResponseDto> findAllProducts(int page, int size, String direction, String orderBy) {
+        Page<ProductEntity> productEntities = productRepository.findAll(PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy));
 
         return productEntities.map(ProductEntity::toDto);
     }

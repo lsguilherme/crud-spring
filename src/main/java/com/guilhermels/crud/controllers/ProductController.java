@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/product")
+@RequestMapping(value = "/v1/api/product")
 public class ProductController {
 
     private final ProductService productService;
@@ -72,13 +72,17 @@ public class ProductController {
             tags = {"produto"},
             parameters = {
                     @Parameter(name = "page", description = "Número da página", required = false),
-                    @Parameter(name = "size", description = "Número de itens por página", required = false)
+                    @Parameter(name = "size", description = "Número de itens por página", required = false),
+                    @Parameter(name = "direction", description = "Ordena por ASC(crescente) ou DESC(decrescente)", required = false),
+                    @Parameter(name = "orderBy", description = "Campo para ordenar", required = false)
             }
     )
     public ResponseEntity<Page<ProductResponseDto>> findAllProducts(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "direction", defaultValue = "DESC") String direction,
+            @RequestParam(value = "orderBy", defaultValue = "updatedAt") String orderBy
             ) {
-        return ResponseEntity.status(HttpStatus.OK).body(productService.findAllProducts(page, size));
+        return ResponseEntity.status(HttpStatus.OK).body(productService.findAllProducts(page, size, direction, orderBy));
     }
 }
