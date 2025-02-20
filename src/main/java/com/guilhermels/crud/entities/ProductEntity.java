@@ -62,15 +62,4 @@ public class ProductEntity extends AbstractBaseEntity{
         this.description = description;
     }
 
-    public ProductResponseDto toDto(){
-        return new ProductResponseDto(
-                this.id,
-                this.name,
-                this.price,
-                this.description,
-                this.getCreatedAt(),
-                this.getUpdatedAt()
-
-        );
-    }
 }

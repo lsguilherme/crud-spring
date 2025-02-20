@@ -3,6 +3,7 @@ package com.guilhermels.crud.services;
 import com.guilhermels.crud.dtos.requests.ProductRequestDto;
 import com.guilhermels.crud.dtos.responses.ProductResponseDto;
 import com.guilhermels.crud.entities.ProductEntity;
+import com.guilhermels.crud.mappers.ProductMapper;
 import com.guilhermels.crud.repositories.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,14 +24,14 @@ public class ProductService {
 
 
     public ProductResponseDto saveProduct(ProductRequestDto productRequestDto) {
-        ProductEntity productEntity = new ProductEntity(productRequestDto.name(), productRequestDto.price(), productRequestDto.description());
+        ProductEntity productEntity = ProductMapper.INSTANCE.toEntity(productRequestDto);
         productEntity = productRepository.save(productEntity);
-        return productEntity.toDto();
+        return ProductMapper.INSTANCE.toDto(productEntity);
     }
 
     public ProductResponseDto findProductById(Integer id) {
         ProductEntity productEntity = productRepository.findById(id).orElseThrow();
-        return productEntity.toDto();
+        return ProductMapper.INSTANCE.toDto(productEntity);
     }
 
     public void deleteProductById(Integer id) {
@@ -45,12 +46,12 @@ public class ProductService {
         productEntity.setDescription(productRequestDto.description());
 
         productEntity = productRepository.save(productEntity);
-        return productEntity.toDto();
+        return ProductMapper.INSTANCE.toDto(productEntity);
     }
 
     public Page<ProductResponseDto> findAllProducts(int page, int size, String direction, String orderBy) {
         Page<ProductEntity> productEntities = productRepository.findAll(PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy));
 
-        return productEntities.map(ProductEntity::toDto);
+        return productEntities.map(ProductMapper.INSTANCE::toDto);
     }
 }
