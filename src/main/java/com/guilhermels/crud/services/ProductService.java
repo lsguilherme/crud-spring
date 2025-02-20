@@ -41,9 +41,7 @@ public class ProductService {
     public ProductResponseDto updateProductById(Integer id, ProductRequestDto productRequestDto) {
         ProductEntity productEntity = productRepository.findById(id).get();
 
-        productEntity.setName(productRequestDto.name());
-        productEntity.setPrice(productRequestDto.price());
-        productEntity.setDescription(productRequestDto.description());
+        ProductMapper.INSTANCE.updateProductFromDto(productRequestDto, productEntity);
 
         productEntity = productRepository.save(productEntity);
         return ProductMapper.INSTANCE.toDto(productEntity);
