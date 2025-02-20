@@ -7,31 +7,32 @@ import com.guilhermels.crud.mappers.ProductMapper;
 import com.guilhermels.crud.repositories.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class ProductService {
 
     private final ProductRepository productRepository;
+    
+    private final ProductMapper productMapper;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
+        this.productMapper = productMapper;
     }
 
 
     public ProductResponseDto saveProduct(ProductRequestDto productRequestDto) {
-        ProductEntity productEntity = ProductMapper.INSTANCE.toEntity(productRequestDto);
+        ProductEntity productEntity = productMapper.toEntity(productRequestDto);
         productEntity = productRepository.save(productEntity);
-        return ProductMapper.INSTANCE.toDto(productEntity);
+        return productMapper.toDto(productEntity);
     }
 
     public ProductResponseDto findProductById(Integer id) {
         ProductEntity productEntity = productRepository.findById(id).orElseThrow();
-        return ProductMapper.INSTANCE.toDto(productEntity);
+        return productMapper.toDto(productEntity);
     }
 
     public void deleteProductById(Integer id) {
@@ -41,15 +42,15 @@ public class ProductService {
     public ProductResponseDto updateProductById(Integer id, ProductRequestDto productRequestDto) {
         ProductEntity productEntity = productRepository.findById(id).get();
 
-        ProductMapper.INSTANCE.updateProductFromDto(productRequestDto, productEntity);
+        productMapper.updateProductFromDto(productRequestDto, productEntity);
 
         productEntity = productRepository.save(productEntity);
-        return ProductMapper.INSTANCE.toDto(productEntity);
+        return productMapper.toDto(productEntity);
     }
 
     public Page<ProductResponseDto> findAllProducts(int page, int size, String direction, String orderBy) {
         Page<ProductEntity> productEntities = productRepository.findAll(PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy));
 
-        return productEntities.map(ProductMapper.INSTANCE::toDto);
+        return productEntities.map(productMapper::toDto);
     }
 }
