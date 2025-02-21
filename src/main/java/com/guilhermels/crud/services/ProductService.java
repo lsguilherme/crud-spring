@@ -3,6 +3,7 @@ package com.guilhermels.crud.services;
 import com.guilhermels.crud.dtos.requests.ProductRequestDto;
 import com.guilhermels.crud.dtos.responses.ProductResponseDto;
 import com.guilhermels.crud.entities.ProductEntity;
+import com.guilhermels.crud.exceptions.ProductNotFoundException;
 import com.guilhermels.crud.mappers.ProductMapper;
 import com.guilhermels.crud.repositories.ProductRepository;
 import org.springframework.data.domain.Page;
@@ -31,7 +32,7 @@ public class ProductService {
     }
 
     public ProductResponseDto findProductById(Integer id) {
-        ProductEntity productEntity = productRepository.findById(id).orElseThrow();
+        ProductEntity productEntity = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Produto não encontrado com id: " + id));
         return productMapper.toDto(productEntity);
     }
 
@@ -40,7 +41,7 @@ public class ProductService {
     }
 
     public ProductResponseDto updateProductById(Integer id, ProductRequestDto productRequestDto) {
-        ProductEntity productEntity = productRepository.findById(id).get();
+        ProductEntity productEntity = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Produto não encontrado com id: " + id));
 
         productMapper.updateProductFromDto(productRequestDto, productEntity);
 
