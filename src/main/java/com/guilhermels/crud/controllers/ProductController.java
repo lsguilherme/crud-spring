@@ -5,6 +5,7 @@ import com.guilhermels.crud.dtos.responses.ProductResponseDto;
 import com.guilhermels.crud.services.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class ProductController {
             description = "Salva um produto no banco de dados.",
             tags = {"produto"}
     )
-    public ResponseEntity<ProductResponseDto> saveProduct(@RequestBody ProductRequestDto productRequestDto) {
+    public ResponseEntity<ProductResponseDto> saveProduct(@RequestBody @Valid ProductRequestDto productRequestDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.saveProduct(productRequestDto));
     }
 
