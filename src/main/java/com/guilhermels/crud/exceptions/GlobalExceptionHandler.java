@@ -1,15 +1,17 @@
 package com.guilhermels.crud.exceptions;
 
-import com.guilhermels.crud.Interceptor.ControllerInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -22,6 +24,15 @@ public class GlobalExceptionHandler {
         String requestId = MDC.get("requestId");
         log.error("[{}] Exception ocorred: {}", requestId, e.getMessage());
         return new Issue(e.getMessage(), HttpStatus.NOT_FOUND, new Date());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Issue handleValidationExceptions(MethodArgumentNotValidException e) {
+        Map<String, String> errors = new HashMap<>();
+        e.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage()));
+        return new Issue(errors.toString(), HttpStatus.BAD_REQUEST, new Date());
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
