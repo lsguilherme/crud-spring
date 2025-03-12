@@ -1,6 +1,4 @@
 package com.guilhermels.crud.entities;
-
-import com.guilhermels.crud.dtos.responses.ProductResponseDto;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
